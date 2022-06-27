@@ -1,30 +1,42 @@
-# Banking System Requirements:
-# implements OOP concepts
-# Creates user account
-# User can deposit, withdraw cash as well as transfer to other Users
-# User can view his/her account details
-# Maintain Transaction history
-# 1. Create Account
-# 2. Display Accounts
-# 3. Deposit Amount
-# 4. Withdraw Amount
-# 5. Transfer Amount
-# 6. Transaction History of specific account
-# 7. Transaction History
-# 8. Exit
+class BankAccount:
+    no_of_customer = 0
+    account_num = 5000
 
-class User:
-    def __init__(self, name, age, gender):
+    def __init__(self, name, mobile_no, initial_depo, pin):
+
         self.name = name
-        self.age = age
-        self.gender = gender
+        self.cust_acc_num = BankAccount.account_num
+        self.mobile_no = mobile_no
+        self.acc_balance = initial_depo
+        self.pin = pin
 
-    def show_detail(self):
-        print("Personal Details")
-        print("")
-        print("Name ", self.name)
-        print("age ", self.age)
-        print("gender ", self.gender)
+        BankAccount.no_of_customer = BankAccount.no_of_customer + 1
+        BankAccount.account_num = BankAccount.account_num + 1
 
+    def basic_details(self):
+        print(f'User: {self.name}\t Account No: {self.cust_acc_num}\t Balance: ${self.acc_balance}')
 
+    def deposit(self):
+        amount = int(input('Enter the deposit amount: '))
+        if amount > 0:
+            self.acc_balance = self.acc_balance + amount
+            print(f'Transaction completed. Current Balance: ${self.acc_balance}')
+        else:
+            print('Invalid amount transaction')
 
+    def withdrawl(self):
+        amount = int(input('Enter the withdrawl amount: '))
+        if amount <= self.acc_balance and amount > 0:
+            self.acc_balance = self.acc_balance - amount
+            print(f'Transaction completed. Current Balance: ${self.acc_balance}')
+        else:
+            print('Invalid amount transaction')
+
+    def payment(self, other):
+        amount = int(input('Enter the payment amount: '))
+        if amount <= self.acc_balance and amount > 0:
+            self.acc_balance = self.acc_balance - amount
+            other.acc_balance = other.acc_balance + amount
+            print(f'Transaction completed. Current Balance: ${self.acc_balance}')
+        else:
+            print('Invalid amount transaction')
